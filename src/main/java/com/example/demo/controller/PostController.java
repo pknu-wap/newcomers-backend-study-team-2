@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/posts")
@@ -18,6 +20,11 @@ public class PostController {
     public ResponseEntity<Long> createPost(@RequestBody PostRequest request) {
         final Long id = service.createPost(request.getTitle(), request.getContent(), request.getAuthor());
         return ResponseEntity.ok(id);
+    }
+
+    @GetMapping
+    private ResponseEntity<List<PostResponse>> getPosts() {
+        return ResponseEntity.ok(service.getPosts());
     }
 
     @GetMapping("/{id}")

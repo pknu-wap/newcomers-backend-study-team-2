@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PostService {
@@ -18,6 +20,18 @@ public class PostService {
         Post post = new Post(title, content, author);
         Post saved = repository.save(post);
         return saved.getId();
+    }
+
+    public List<PostResponse> getPosts() {
+        final List<Post> posts = repository.findAll();
+        return posts.stream()
+                .map(post -> new PostResponse(
+                        post.getId(),
+                        post.getTitle(),
+                        post.getContent(),
+                        post.getAuthor(),
+                        post.getCreateAt())
+                ).toList();
     }
 
     public PostResponse getPost(final Long id) {
