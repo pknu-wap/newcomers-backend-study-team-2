@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.PostRequest;
+import com.example.demo.dto.PostResponse;
 import com.example.demo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,11 @@ public class PostController {
     public ResponseEntity<Long> createPost(@RequestBody PostRequest request) {
         final Long id = service.createPost(request.getTitle(), request.getContent(), request.getAuthor());
         return ResponseEntity.ok(id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostResponse> getPost(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getPost(id));
     }
 
     @PutMapping("/{id}")

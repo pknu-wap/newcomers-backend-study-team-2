@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PostResponse;
 import com.example.demo.entity.Post;
 import com.example.demo.repository.PostRepository;
 import jakarta.transaction.Transactional;
@@ -19,10 +20,19 @@ public class PostService {
         return saved.getId();
     }
 
+    public PostResponse getPost(final Long id) {
+        final Post post = findPostById(id);
+        return new PostResponse(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreateAt());
+    }
+
     @Transactional
     public Long updatePost(final Long id, final String title, final String content, final String author) {
-        Post post = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글 없음"));
+        Post post = findPostById(id);
         post.update(title, content, author);
         return post.getId();
+    }
+
+    private Post findPostById(final Long id) {
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글 없음"));
     }
 }
