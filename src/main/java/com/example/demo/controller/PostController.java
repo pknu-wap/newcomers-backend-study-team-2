@@ -37,4 +37,10 @@ public class PostController {
         service.updatePost(id, request.getTitle(), request.getContent(), request.getAuthor());
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+        service.deletePost(id);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -46,6 +46,11 @@ public class PostService {
         return post.getId();
     }
 
+    @Transactional
+    public void deletePost(final Long id) {
+        repository.deleteById(id);
+    }
+
     private Post findPostById(final Long id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글 없음"));
     }
