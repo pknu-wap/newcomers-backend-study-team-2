@@ -1,5 +1,5 @@
 package com.example.board.controller;
-// test
+// test2
 
 import com.example.board.service.BoardService;
 import org.springframework.web.bind.annotation.PostMapping;
