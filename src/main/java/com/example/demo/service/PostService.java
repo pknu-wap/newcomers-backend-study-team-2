@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.dto.PostResponse;
 import com.example.demo.entity.Post;
+import com.example.demo.exception.BusinessException;
+import com.example.demo.exception.ErrorCode;
 import com.example.demo.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +54,6 @@ public class PostService {
     }
 
     private Post findPostById(final Long id) {
-        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글 없음"));
+        return repository.findById(id).orElseThrow(() -> new BusinessException(ErrorCode.POST_NOT_FOUND));
     }
 }
