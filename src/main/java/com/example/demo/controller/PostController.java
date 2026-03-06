@@ -2,8 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.common.response.ApiResponse;
 import com.example.demo.common.response.ApiResponseFactory;
-import com.example.demo.dto.PostRequest;
-import com.example.demo.dto.PostResponse;
+import com.example.demo.dto.request.PostRequest;
+import com.example.demo.dto.response.PostResponse;
 import com.example.demo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

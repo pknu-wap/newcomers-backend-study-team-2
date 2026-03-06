@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.PostResponse;
+import com.example.demo.dto.response.PostResponse;
 import com.example.demo.entity.Post;
 import com.example.demo.exception.BusinessException;
 import com.example.demo.exception.ErrorCode;
