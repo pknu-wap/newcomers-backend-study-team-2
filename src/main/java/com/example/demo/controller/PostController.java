@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.common.response.ApiResponse;
+import com.example.demo.common.response.ApiResponseFactory;
 import com.example.demo.dto.PostRequest;
 import com.example.demo.dto.PostResponse;
 import com.example.demo.service.PostService;
@@ -17,30 +19,32 @@ public class PostController {
     private final PostService service;
 
     @PostMapping
-    public ResponseEntity<Long> createPost(@RequestBody PostRequest request) {
+    public ResponseEntity<ApiResponse<Long>> createPost(@RequestBody PostRequest request) {
         final Long id = service.createPost(request.getTitle(), request.getContent(), request.getAuthor());
-        return ResponseEntity.ok(id);
+        return ResponseEntity.ok(ApiResponseFactory.success(id));
     }
 
     @GetMapping
-    private ResponseEntity<List<PostResponse>> getPosts() {
-        return ResponseEntity.ok(service.getPosts());
+    private ResponseEntity<ApiResponse<List<PostResponse>>> getPosts() {
+        final List<PostResponse> posts = service.getPosts();
+        return ResponseEntity.ok(ApiResponseFactory.success(posts));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponse> getPost(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getPost(id));
+    public ResponseEntity<ApiResponse<PostResponse>> getPost(@PathVariable Long id) {
+        final PostResponse post = service.getPost(id);
+        return ResponseEntity.ok(ApiResponseFactory.success(post));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updatePost(@PathVariable Long id, @RequestBody PostRequest request) {
+    public ResponseEntity<ApiResponse<Void>> updatePost(@PathVariable Long id, @RequestBody PostRequest request) {
         service.updatePost(id, request.getTitle(), request.getContent(), request.getAuthor());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(ApiResponseFactory.success(null));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> deletePost(@PathVariable Long id) {
         service.deletePost(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(ApiResponseFactory.success(null));
     }
 }
