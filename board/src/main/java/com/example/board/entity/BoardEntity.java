@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
     @Entity
     @Getter
     @Setter
-    public class Board {
+    public class BoardEntity {
 
         @Id
         @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -22,5 +22,8 @@ import java.time.LocalDateTime;
         private String content;
 
                 private LocalDateTime createdAt = LocalDateTime.now();
-
+        public void update (String title, String content) {
+            this.title = title;
+            this.content = content;
+        }
     }
