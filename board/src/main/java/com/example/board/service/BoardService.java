@@ -14,9 +14,7 @@ import java.util.List;
     public class BoardService {
         private final BoardRepository repository;
         public BoardEntity write(BoardDTO dto) {
-            BoardEntity board = new BoardEntity();
-            board.setTitle(dto.getTitle());
-            board.setContent(dto.getContent());
+            BoardEntity board = new BoardEntity(dto.getTitle(), dto.getContent());
 
             return repository.save(board);
         }
